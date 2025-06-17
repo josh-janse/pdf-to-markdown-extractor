@@ -12,37 +12,83 @@ A simple, powerful Node.js tool that converts PDF documents to clean, structured
 - 🔒 **Secure** - Files auto-delete after 48 hours
 - 📱 **Cross-Platform** - Works on macOS, Windows, and Linux
 
-## 🛠️ Setup
+## 🛠️ Quick Start
 
 ### Prerequisites
 - Node.js 18 or higher
 - Google API key for Gemini
 
-### 1. Get Your Gemini API Key
+### 1. Clone and Install
+
+```bash
+# Clone the repository
+git clone https://github.com/josh-janse/pdf-to-markdown-extractor.git
+cd pdf-to-markdown-extractor
+
+# Install dependencies
+npm install
+```
+
+### 2. Get Your Gemini API Key
 1. Visit [Google AI Studio](https://aistudio.google.com/)
 2. Sign in with your Google account
 3. Click "Get API Key" in the sidebar
 4. Create a new API key and copy it
 
-### 2. Installation
+### 3. Configure Environment
 
 ```bash
-# Clone or create project directory
-mkdir pdf-extractor
-cd pdf-extractor
+# Copy the template and add your API key
+cp .env.template .env
 
-# Initialize project
-npm init -y
-
-# Install dependencies
-npm install @google/genai dotenv
-
-# Create environment file
+# Edit .env and add your API key
 echo "GOOGLE_API_KEY=your_actual_api_key_here" > .env
 ```
 
-### 3. Add the Script
-Create `extract.js` with the provided code, or copy from this repository.
+### 4. Test Installation
+
+```bash
+# Run the diagnostic to verify everything works
+node diagnose.js
+```
+
+You should see:
+```
+✅ All checks passed! The tool should work.
+```
+
+## 🚀 Usage
+
+### Single PDF File
+```bash
+node extract.js document.pdf
+```
+
+### Multiple Files
+```bash
+node extract.js file1.pdf file2.pdf file3.pdf
+```
+
+### Entire Folder
+```bash
+# Process all PDFs in a folder
+node extract.js ./documents/
+
+# Process all PDFs in current directory
+node extract.js ./
+```
+
+### Examples
+```bash
+# Convert a research paper
+node extract.js research-paper.pdf
+
+# Process all invoices
+node extract.js ./invoices/
+
+# Convert presentation slides
+node extract.js presentation.pdf
+```
 
 ## 🚀 Usage
 
@@ -146,10 +192,72 @@ GOOGLE_API_KEY=your_gemini_api_key_here
 
 ### Getting Help
 
-1. **Check API Key**: Run the diagnostic script to verify setup
-2. **File Permissions**: Ensure Node.js can read your PDF files
-3. **Network**: Check firewall/proxy settings if API calls fail
-4. **File Size**: Very large PDFs (>100MB) may take longer to process
+Run the diagnostic script to troubleshoot issues:
+```bash
+node diagnose.js
+```
+
+This will check:
+- Node.js version compatibility
+- API key configuration
+- Network connectivity
+- Available API methods
+
+Common issues and solutions:
+
+**"GOOGLE_API_KEY not found"**
+- Ensure `.env` file exists in project root
+- Check there are no spaces around the `=` sign
+- Verify your API key is correct
+
+**"File not found"**
+- Use full or relative paths to PDF files
+- Ensure files have `.pdf` extension
+- Check file permissions
+
+**"API Error"**
+- Verify your API key is active at [Google AI Studio](https://aistudio.google.com/)
+- Check internet connectivity
+- Ensure you haven't exceeded rate limits
+
+**"No PDF files found"**
+- Verify the folder contains PDF files
+- Check folder path is correct
+- Ensure PDF files have proper extensions
+
+## 🛠️ Development
+
+### Project Structure
+```
+pdf-to-markdown-extractor/
+├── README.md          # This file
+├── extract.js         # Main extraction script
+├── diagnose.js        # Diagnostic utility
+├── package.json       # Dependencies and scripts
+├── package-lock.json  # Locked dependency versions
+├── .env.template      # Environment template
+├── .env              # Your API key (not in repo)
+├── .gitignore        # Git ignore rules
+└── output/           # Generated markdown files
+```
+
+### Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Commit your changes (`git commit -m 'Add amazing feature'`)
+5. Push to the branch (`git push origin feature/amazing-feature`)
+6. Open a Pull Request
+
+### Adding Features
+
+The codebase is intentionally simple. Some ideas for enhancements:
+- Support for other document formats (DOCX, PPTX)
+- Custom output formatting options
+- Integration with other AI models
+- Web interface
+- Docker containerization
 
 ## 📝 Example Output
 
@@ -191,6 +299,24 @@ This is a simple utility script. Feel free to:
 - Report issues or suggestions
 - Share your use cases
 
+### Development Setup
+
+```bash
+# Fork and clone your fork
+git clone https://github.com/YOUR_USERNAME/pdf-to-markdown-extractor.git
+cd pdf-to-markdown-extractor
+
+# Install dependencies
+npm install
+
+# Copy environment template
+cp .env.template .env
+# Add your API key to .env
+
+# Test your setup
+node diagnose.js
+```
+
 ## 📄 License
 
 MIT License - feel free to use for personal or commercial projects.
@@ -200,14 +326,14 @@ MIT License - feel free to use for personal or commercial projects.
 ### Custom Output Directory
 Modify the script to change the output directory:
 ```javascript
-// Change this line in the script:
+// Change this line in extract.js:
 await fs.mkdir('./my-output', { recursive: true });
 ```
 
 ### Custom Prompts
 Modify the extraction prompt for specific formatting:
 ```javascript
-// Find this line and customize:
+// Find this line in extract.js and customize:
 'Extract all text from this PDF and format it as clean markdown...'
 ```
 
@@ -218,6 +344,30 @@ import { extractPDF } from './extract.js';
 const result = await extractPDF('document.pdf');
 ```
 
+### Automation
+
+Create npm scripts in `package.json`:
+```json
+{
+  "scripts": {
+    "extract": "node extract.js",
+    "diagnose": "node diagnose.js",
+    "extract-docs": "node extract.js ./documents/"
+  }
+}
+```
+
+Then use:
+```bash
+npm run extract document.pdf
+npm run diagnose
+npm run extract-docs
+```
+
 ---
 
 **Happy extracting! 📚➡️📝**
+
+⭐ **Star this repo** if you find it useful!  
+🐛 **Report issues** on the [GitHub Issues page](https://github.com/josh-janse/pdf-to-markdown-extractor/issues)  
+💡 **Suggest features** or contribute improvements

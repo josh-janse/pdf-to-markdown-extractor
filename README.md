@@ -133,14 +133,18 @@ node extract.js presentation.pdf
 
 ## 💰 Cost
 
-**File Uploads:** Free  
-**Text Processing:** ~$0.10 per million tokens  
-**Typical Cost:** $0.01-0.05 per 10-page PDF  
+**Free Tier:** Free of charge for both input and output (with rate limits)
 
-Example costs:
-- Small document (5 pages): ~$0.005
-- Medium document (20 pages): ~$0.02
-- Large document (100 pages): ~$0.10
+**Paid Tier (per 1M tokens):**
+- Input: $0.10 (text/image/video)
+- Output: $0.40
+
+**Real-world costs for typical PDFs:**
+- Small document (5 pages): ~$0.002-0.005
+- Medium document (20 pages): ~$0.01-0.02  
+- Large document (100 pages): ~$0.05-0.10
+
+**Important:** Most users can use the free tier for testing and light usage. You only pay when you exceed the free tier rate limits.
 
 ## 🔧 Configuration
 
